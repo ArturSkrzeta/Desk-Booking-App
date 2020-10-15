@@ -2,7 +2,7 @@
 
 <h3>Intro</h3>
 <ul>
-  <li></li>
+  <li>State - short-term memoty in react - blueprint on writinh variables in react.</li>
   <li></li>
 </ul>
 
