@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+
+	<head>
+		<title>Phantom by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<script>
+			var check = false;
+		</script>
+	</head>
+	<body>
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+							<!-- Logo -->
+							<span class="icon solid fa-laptop" style="margin-right:15px;"></span><span style="font-size:22px;">Book Your Desk</span>
+							<form action="#" method="post">
+								{{ choice.date_choice(placeholder="Date dd/mm/yyy") }}
+								{{ choice.floor(placeholder="Choose Floor") }}
+								{{ choice.search }}
+							</form>
+
+						</div>
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<section class="tiles">
+
+								{% for d in desks %}
+
+									{% if d.date == choice.date_choice.data %}
+
+										<article class="style1">
+											<div id="desk{{ d.desk }}" class="icon solid fa-laptop" onclick="myFunction{{ d.desk }}()" style="
+
+											{% if d.occupied == 'Y' %}
+												color: rgb(215, 215, 215);
+											{% else %}
+												color: rgb(88, 88, 88);
+											{% endif %}
+
+											"></div>
+											<h2>{{ d.desk[0] }}.{{ d.desk[1] }}.{{ d.desk[2] }}</h2>
+										</article>
+
+										<script>
+											function myFunction{{ d.desk }}()
+											{
+
+											  var div_element = document.getElementById("desk{{ d.desk }}")
+
+												if (div_element.style.color == "rgb(215, 215, 215)") {
+													// dp nothing
+												} else if ((div_element.style.color != "rgb(252, 145, 145)") && (check == false))	{
+													div_element.style.color = "rgb(252, 145, 145)";
+													selected = div_element.id
+													document.getElementById("desk").value = selected
+													check = true
+												} else if ((div_element.style.color == "rgb(252, 145, 145)") && (div_element.id == selected)) {
+													div_element.style.color = "rgb(88, 88, 88)";
+													check = false
+													selected = ""
+													document.getElementById("desk").value = selected
+												}
+
+											}
+										</script>
+
+									{% endif %}
+
+								{% endfor %}
+
+
+							</section>
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+
+							<form action="#" method="post">
+								{{ form.date(value=_date) }}
+								{{ form.desk(placeholder="Select your desk above") }}
+								{{ form.submit }}
+							</form>
+
+							<ul class="copyright">
+								<li>&copy; Book Your Desk Application</li>
+							</ul>
+
+						</div>
+					</footer>
+
+			</div>
+
+			<script>
+
+
+			</script>
+
+		<!-- Scripts -->
+			<script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='browser.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='breakpoints.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='util.js') }}"></script>
+			<script src="{{ url_for('static', filename='main.js') }}"></script>
+
+	</body>
+</html>
